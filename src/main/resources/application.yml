@@ -1,0 +1,34 @@
+server:
+  port: 8888
+spring:
+  datasource:
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/job_submission?useSSL=false&serverTimezone=CTT&useUnicode=true&characterEncoding=UTF-8
+  redis:
+    host: localhost
+    port: 6379
+    database: 0
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+      location: ${user.dir}
+  cache:
+    redis:
+      time-to-live: 6000000000
+
+mybatis-plus:
+  type-aliases-package: forestj.pojo
+  mapper-locations: classpath:mybatis/mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: false
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+
+logging:
+  level:
+    root: info
+  config: classpath:logback.xml
+
+
