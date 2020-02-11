@@ -52,15 +52,23 @@ public class ShiroConfig {
         filterMap.put("/exam/getAll","anon");
         filterMap.put("/user/getExam","anon");
         filterMap.put("/work/upload","anon");
-        filterMap.put("/**","authc");
+        filterMap.put("/swagger-ui.html", "anon");
+        filterMap.put("/swagger/**", "anon");
+        filterMap.put("/swagger-resources/**", "anon");
+        filterMap.put("/v2/**", "anon");
+        filterMap.put("/webjars/**", "anon");
+        filterMap.put("/configuration/**", "anon");
 
-//        filterMap.put("/test2","authc");
+        filterMap.put("/**","authc");
 
         filterFactory.setFilterChainDefinitionMap(filterMap);
 
         return filterFactory;
     }
 
+    /**
+     * shiro-redis相关配置
+     */
     @Value("${spring.redis.host}")
     private String host;
     @Value("${spring.redis.port}")
@@ -80,7 +88,7 @@ public class ShiroConfig {
         return sessionDAO;
     }
     /**
-     * 3.会话管理器
+     * 会话管理器
      */
     public DefaultWebSessionManager sessionManager() {
         CustomSessionManager sessionManager = new CustomSessionManager();
@@ -89,7 +97,7 @@ public class ShiroConfig {
     }
 
     /**
-     * 4.缓存管理器
+     * 缓存管理器
      */
     public RedisCacheManager cacheManager() {
         RedisCacheManager redisCacheManager = new RedisCacheManager();

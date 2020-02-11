@@ -3,6 +3,10 @@ package com.forestj.controller;
 import com.forestj.pojo.*;
 import com.forestj.service.ExamService;
 import com.forestj.service.WorkService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +18,7 @@ import java.util.UUID;
 @RestController
 @CrossOrigin
 @RequestMapping("/exam")
+@Api(tags = "考核模块")
 public class ExamController {
 
     @Autowired
@@ -22,6 +27,10 @@ public class ExamController {
     private WorkService workService;
 
     @PostMapping("/addExam")
+    @ApiOperation(value = "发布考核")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name="deadline",paramType="form")
+    })
     public ResponseJson addExam(String title,
                                 String content,
                                 String name,
@@ -32,6 +41,7 @@ public class ExamController {
     }
 
     @GetMapping("/getAll")
+    @ApiOperation(value = "查看所有考核")
     public ResponseJson<PageResult<Exam>> getAll(int page){
         if(page<=0){
             return new ResponseJson<>(ResultCode.WRONGEXAMPAGE);
@@ -41,6 +51,7 @@ public class ExamController {
     }
 
     @GetMapping("/getExam")
+    @ApiOperation(value = "查看单个考核")
     public ResponseJson<Exam> getExam(String examId){
         Exam exam = examService.getExamById(examId);
         if(exam==null){
@@ -50,11 +61,15 @@ public class ExamController {
     }
 
     @PostMapping("/updateExam")
+    @ApiOperation(value = "修改考核")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name="deadline",paramType="form")
+    })
     public ResponseJson updateExam(String examId,
                                    String title,
                                    String content,
                                    String name,
-                                   @DateTimeFormat(pattern = "yyyy-MM-dd-HH-mm-ss") Date deadline){
+                                   @DateTimeFormat(pattern = "yyyy-MM-dd-HH-mm-ss")  Date deadline){
         Exam exam=examService.getExamById(examId);
         if(exam==null){
             return new ResponseJson<>(ResultCode.EMPTYEXAM);
@@ -65,6 +80,7 @@ public class ExamController {
     }
 
     @GetMapping("/delete")
+    @ApiOperation(value = "删除考核")
     public ResponseJson delete(String examId){
         Exam exam=examService.getExamById(examId);
         if(exam==null){

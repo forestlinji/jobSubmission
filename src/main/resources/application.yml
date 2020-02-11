@@ -20,7 +20,7 @@ spring:
       time-to-live: 6000000000
 
 mybatis-plus:
-  type-aliases-package: forestj.pojo
+  type-aliases-package: com.forestj.pojo
   mapper-locations: classpath:mybatis/mapper/*.xml
   configuration:
     map-underscore-to-camel-case: false

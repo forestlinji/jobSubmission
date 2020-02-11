@@ -3,6 +3,7 @@ package com.forestj.config;
 import com.forestj.service.UserService;
 import com.forestj.pojo.User;
 import com.forestj.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.crypto.hash.Md5Hash;
@@ -10,6 +11,10 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 
+/**
+ * 自定义realm
+ */
+@Slf4j
 public class CustomRealm extends AuthorizingRealm {
     @Autowired
     private UserService userService;
@@ -23,16 +28,25 @@ public class CustomRealm extends AuthorizingRealm {
         return null;
     }
 
+    /**
+     * 登录验证
+     * @param authenticationToken
+     * @return
+     * @throws AuthenticationException
+     */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         UsernamePasswordToken upToken = (UsernamePasswordToken) authenticationToken;
         String id = upToken.getUsername();
         String password = new String( upToken.getPassword());
         User userRes = userService.getUserById(id);
+        log.info("断点1："+userRes.getId()+":"+userRes.getPassword());
         if(userRes!=null&&id!=null&&password!=null&&userRes.getId().equals(id)&&userRes.getPassword().equals(password)){
+            log.info("断点2："+userRes.getId()+":"+userRes.getPassword());
             SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(userRes,userRes.getPassword(),this.getName());
             return info;
         }
+        log.info("return null");
         return null;
     }
 }

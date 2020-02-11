@@ -4,6 +4,8 @@ import com.forestj.pojo.ResponseJson;
 import com.forestj.pojo.ResultCode;
 import com.forestj.pojo.User;
 import com.forestj.service.UserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -20,18 +22,21 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/user")
 @Slf4j
+@Api(tags = "用户模块")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
     @PostMapping("/login")
+    @ApiOperation(value = "用户登录")
     public ResponseJson userLogin(String id,
                                   String password){
         if(StringUtils.isEmpty(id)||StringUtils.isEmpty(password)){
             return new ResponseJson(ResultCode.EMPTYINFO);
         }
         password = new Md5Hash(password,id,2).toString();
+        log.info("传参并加密后："+id+":"+password);
         UsernamePasswordToken upToken = new UsernamePasswordToken(id,password);
         Subject subject = SecurityUtils.getSubject();
         try{
@@ -45,18 +50,20 @@ public class UserController {
     }
 
     @GetMapping("/logout")
+    @ApiOperation(value = "注销登录")
     public ResponseJson logout(String id){
         Subject subject = SecurityUtils.getSubject();
         log.info(((User) subject.getPrincipal()).getId()+"退出登录");
         subject.logout();
         return new ResponseJson(ResultCode.SUCCESS);
     }
-    @GetMapping("/test")
-    public String test(){
-        return "success";
-    }
+//    @GetMapping("/test")
+//    public String test(){
+//        return "success";
+//    }
 
     @GetMapping("/getUserInfo")
+    @ApiOperation(value = "获取当前用户信息")
     public ResponseJson<User> getUserInfo(String id){
         if(StringUtils.isEmpty(id)){
             return new ResponseJson<>(ResultCode.EMPTYINFO);
@@ -69,6 +76,7 @@ public class UserController {
     }
 
     @PostMapping("/updatePwd")
+    @ApiOperation(value = "密码修改")
     public ResponseJson updatePwd(String id,
                                   String oldPassword,
                                   String newPassword){
@@ -90,6 +98,7 @@ public class UserController {
     }
 
     @PostMapping("/signup")
+    @ApiOperation(value = "添加用户")
     public ResponseJson signup(String id,
                                String password,
                                String name,

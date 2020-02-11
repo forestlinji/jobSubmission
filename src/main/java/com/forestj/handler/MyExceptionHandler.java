@@ -23,7 +23,6 @@ public class MyExceptionHandler {
         e.printStackTrace();
         ResponseJson result = new ResponseJson(ResultCode.ERROR);
         return result;
-
     }
 
     @ExceptionHandler(value = AuthorizationException.class)

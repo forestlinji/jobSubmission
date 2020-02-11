@@ -5,9 +5,11 @@ import org.apache.shiro.authz.AuthorizationException;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import springfox.documentation.annotations.ApiIgnore;
 
 @RestController
 @CrossOrigin
+@ApiIgnore
 public class MyErrorController {
     @RequestMapping("/errors")
     public ResponseJson errors(){

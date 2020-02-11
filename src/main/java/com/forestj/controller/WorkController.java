@@ -6,6 +6,8 @@ import com.forestj.mapper.ExamMapper;
 import com.forestj.pojo.*;
 import com.forestj.service.ExamService;
 import com.forestj.service.WorkService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.apache.tomcat.util.http.fileupload.FileUtils;
@@ -23,6 +25,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/work")
 @Slf4j
+@Api(tags = "作业模块")
 public class WorkController {
     @Autowired
     private ExamService examService;
@@ -30,6 +33,7 @@ public class WorkController {
     private WorkService workService;
 
     @PostMapping("/upload")
+    @ApiOperation(value = "作业上传")
     public ResponseJson upload(MultipartFile files,
                                String examId,
                                String name,
@@ -90,6 +94,7 @@ public class WorkController {
     }
 
     @GetMapping("/getAll")
+    @ApiOperation(value = "查看某考核对应的作业")
     public ResponseJson<PageResult<Work>> getAllWork(String examId,int page){
         Exam exam = examService.getExamById(examId);
         if(exam==null){
@@ -100,6 +105,7 @@ public class WorkController {
     }
 
     @GetMapping("/updateWork")
+    @ApiOperation(value = "修改作业状态")
     public ResponseJson updateWork(String workId,
                                    @RequestParam(defaultValue = "") String checker,
                                    @RequestParam(defaultValue = "-1")int state){
@@ -117,6 +123,7 @@ public class WorkController {
     }
 
     @GetMapping("/download")
+    @ApiOperation(value = "删除单个作业")
     public ResponseJson download(HttpServletResponse res,String workId){
         Work work = workService.getWorkById(workId);
         if(work==null){
@@ -139,6 +146,7 @@ public class WorkController {
     }
 
     @GetMapping("/delete")
+    @ApiOperation(value = "删除单个作业")
     public ResponseJson delete(String workId){
         Work work = workService.getWorkById(workId);
         if(work==null){
@@ -150,7 +158,8 @@ public class WorkController {
     }
 
     @PostMapping("/deleteBatch")
-    public ResponseJson test(@RequestBody String workId){
+    @ApiOperation(value = "批量删除作业")
+    public ResponseJson deleteBatch(@RequestBody String workId){
         //将json数组转为list
         String workIds = JSONObject.parseObject(workId).getString("workId");
         List<String> ids = JSON.parseArray(workId).toJavaList(String.class);
