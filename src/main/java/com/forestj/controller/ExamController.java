@@ -94,4 +94,5 @@ public class ExamController {
         examService.deleteById(examId);
         return new ResponseJson(ResultCode.SUCCESS);
     }
+
 }
