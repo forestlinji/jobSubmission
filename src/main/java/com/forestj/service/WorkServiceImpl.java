@@ -38,8 +38,13 @@ public class WorkServiceImpl implements WorkService{
     }
 
     @Override
-    public void addWork(Work work) {
-        workMapper.insert(work);
+    public void addWork(Work work,boolean exist) {
+        if(exist){
+            workMapper.updateById(work);
+        }
+        else {
+            workMapper.insert(work);
+        }
     }
 
     @Override

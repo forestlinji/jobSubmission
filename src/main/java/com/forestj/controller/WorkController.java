@@ -76,7 +76,7 @@ public class WorkController {
         try {
             files.transferTo(dest);
             log.debug("创建文件"+fileName);
-            workService.addWork(work);
+            workService.addWork(work,exist);
         } catch (IOException e) {
             e.printStackTrace();
             throw e;

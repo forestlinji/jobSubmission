@@ -23,8 +23,9 @@ public interface WorkService {
     /**
      * 添加作业
      * @param work
+     * @param exist 作业是否存在
      */
-    public void addWork(Work work);
+    public void addWork(Work work,boolean exist);
 
     /**
      * 分页查询某个考核对应作业
