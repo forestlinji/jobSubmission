@@ -40,13 +40,10 @@ public class CustomRealm extends AuthorizingRealm {
         String id = upToken.getUsername();
         String password = new String( upToken.getPassword());
         User userRes = userService.getUserById(id);
-        log.info("断点1："+userRes.getId()+":"+userRes.getPassword());
         if(userRes!=null&&id!=null&&password!=null&&userRes.getId().equals(id)&&userRes.getPassword().equals(password)){
-            log.info("断点2："+userRes.getId()+":"+userRes.getPassword());
             SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(userRes,userRes.getPassword(),this.getName());
             return info;
         }
-        log.info("return null");
         return null;
     }
 }
