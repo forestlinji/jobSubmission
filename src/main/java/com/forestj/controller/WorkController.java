@@ -116,7 +116,7 @@ public class WorkController {
         }
         work.setChecker(checker);
         work.setState(state);
-        workService.addWork(work);
+        workService.addWork(work,true);
         return new ResponseJson(ResultCode.SUCCESS);
     }
 
