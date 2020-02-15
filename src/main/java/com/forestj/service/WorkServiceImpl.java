@@ -1,13 +1,10 @@
 package com.forestj.service;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.forestj.mapper.WorkMapper;
-import com.forestj.pojo.Exam;
 import com.forestj.pojo.PageResult;
-import com.forestj.pojo.User;
 import com.forestj.pojo.Work;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -18,7 +18,7 @@ public class Work implements Serializable {
     @TableId
     private String workId;
     //考核id
-    private String ExamId;
+    private String examId;
     //学生姓名
     private String name;
     //学号
