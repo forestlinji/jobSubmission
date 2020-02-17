@@ -121,7 +121,7 @@ public class WorkController {
     }
 
     @GetMapping("/download")
-    @ApiOperation(value = "删除单个作业")
+    @ApiOperation(value = "下载单个作业")
     public ResponseJson download(HttpServletResponse res,String workId){
         Work work = workService.getWorkById(workId);
         if(work==null){
@@ -135,7 +135,6 @@ public class WorkController {
             res.addHeader("Content-Disposition","attachment;filename="+work.getFilename());
             //用 common-io 工具 将输入流拷贝到输出流
             IOUtils.copy(inputStream,outputStream);
-
             outputStream.flush();
         } catch (IOException e) {
             e.printStackTrace();
