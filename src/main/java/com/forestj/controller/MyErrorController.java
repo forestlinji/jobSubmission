@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.annotations.ApiIgnore;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(allowCredentials = "true", allowedHeaders = "*")
 @ApiIgnore
 public class MyErrorController {
     @RequestMapping("/errors")
