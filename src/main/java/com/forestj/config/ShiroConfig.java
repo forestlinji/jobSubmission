@@ -1,5 +1,6 @@
 package com.forestj.config;
 
+import com.forestj.filter.ShiroUserFilter;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.servlet.Filter;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -45,7 +47,9 @@ public class ShiroConfig {
         //设置安全管理器
         filterFactory.setSecurityManager(securityManager);
         filterFactory.setLoginUrl("/errors");//跳转url地址
-        //通用配置（跳转登录页面，为授权跳转的页面）
+        Map<String, Filter> filters = filterFactory.getFilters();;
+        filters.put("authc",new ShiroUserFilter());
+        filterFactory.setFilters(filters);
         Map<String,String> filterMap = new LinkedHashMap<>();
         filterMap.put("/user/login","anon");
         filterMap.put("/user/signup","anon");
@@ -58,9 +62,10 @@ public class ShiroConfig {
         filterMap.put("/v2/**", "anon");
         filterMap.put("/webjars/**", "anon");
         filterMap.put("/configuration/**", "anon");
-
-        filterMap.put("/**","authc");
-
+        filterMap.put("/user/**","authc");
+        filterMap.put("/exam/**","authc");
+        filterMap.put("/work/**","authc");
+//        filterMap.put("/**","anon");
         filterFactory.setFilterChainDefinitionMap(filterMap);
 
         return filterFactory;
@@ -104,4 +109,6 @@ public class ShiroConfig {
         redisCacheManager.setRedisManager(redisManager());
         return redisCacheManager;
     }
+
+
 }

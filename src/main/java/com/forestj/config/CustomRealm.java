@@ -6,10 +6,12 @@ import com.forestj.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 
 /**
  * 自定义realm
@@ -25,7 +27,8 @@ public class CustomRealm extends AuthorizingRealm {
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        return null;
+        SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
+        return authorizationInfo;
     }
 
     /**
@@ -46,4 +49,10 @@ public class CustomRealm extends AuthorizingRealm {
         }
         return null;
     }
+
+
+
+
+
+
 }

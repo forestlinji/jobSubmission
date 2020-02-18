@@ -3,6 +3,7 @@ package com.forestj.config;
 import org.apache.shiro.web.servlet.ShiroHttpServletRequest;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.apache.shiro.web.util.WebUtils;
+import org.springframework.context.annotation.Bean;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.ServletRequest;
@@ -24,4 +25,6 @@ public class CustomSessionManager extends DefaultWebSessionManager {
             return id;
         }
     }
+
+
 }

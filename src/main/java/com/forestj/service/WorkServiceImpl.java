@@ -22,7 +22,7 @@ public class WorkServiceImpl implements WorkService{
     @Override
     public Work selectWorkByNameAndId(String name, String stuId) {
         QueryWrapper<Work> wrapper = new QueryWrapper<>();
-        wrapper.eq("name",name).eq("stuId",stuId);
+        wrapper.eq("name",name).eq("stu_id",stuId);
         Work work = workMapper.selectOne(wrapper);
         return work;
     }
@@ -50,7 +50,7 @@ public class WorkServiceImpl implements WorkService{
     @Override
     public PageResult<Work> getAllWorks(String examId, int page) {
         QueryWrapper<Work> wrapper = new QueryWrapper<>();
-        wrapper.eq("examId",examId);
+        wrapper.eq("exam_id",examId);
         IPage<Work> iPage = workMapper.selectPage(new Page<>(page,10), wrapper);
         PageResult<Work> pageResult = new PageResult<>();
         pageResult.setCurrent(iPage.getCurrent());
@@ -63,7 +63,7 @@ public class WorkServiceImpl implements WorkService{
     @Override
     public List<Work> getWorks(String examId) {
         QueryWrapper<Work> wrapper = new QueryWrapper<>();
-        wrapper.eq("examId",examId);
+        wrapper.eq("exam_id",examId);
         List<Work> works = workMapper.selectList(wrapper);
         return works;
     }

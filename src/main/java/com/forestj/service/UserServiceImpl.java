@@ -19,7 +19,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public User getUserByInvitationCode(String invitationCode) {
         QueryWrapper<User> wrapper = new QueryWrapper<>();
-        wrapper.eq("invitationCode",invitationCode);
+        wrapper.eq("invitation_code",invitationCode);
         User user = userMapper.selectOne(wrapper);
         return user;
     }
