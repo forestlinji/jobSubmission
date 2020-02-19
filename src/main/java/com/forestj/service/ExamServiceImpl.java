@@ -17,7 +17,7 @@ public class ExamServiceImpl implements ExamService{
     private ExamMapper examMapper;
 
     @Override
-    @CacheEvict(cacheNames = {"workPages","work"})
+    @CacheEvict(cacheNames = {"workPages","work"},allEntries = true)
     public void addExam(Exam exam) {
         examMapper.insert(exam);
         IPage<Exam> page=new Page<>(1,1);
@@ -42,13 +42,13 @@ public class ExamServiceImpl implements ExamService{
     }
 
     @Override
-    @CacheEvict(cacheNames = {"workPages","work"})
+    @CacheEvict(cacheNames = {"workPages","work"},allEntries = true)
     public void updateExam(Exam exam) {
         examMapper.updateById(exam);
     }
 
     @Override
-    @CacheEvict(cacheNames = {"workPages","work"})
+    @CacheEvict(cacheNames = {"workPages","work"},allEntries = true)
     public void deleteById(String examId) {
         examMapper.deleteById(examId);
     }
