@@ -51,6 +51,7 @@ public class WorkServiceImpl implements WorkService{
     public PageResult<Work> getAllWorks(String examId, int page) {
         QueryWrapper<Work> wrapper = new QueryWrapper<>();
         wrapper.eq("exam_id",examId);
+        wrapper.orderByDesc("submit_date");
         IPage<Work> iPage = workMapper.selectPage(new Page<>(page,10), wrapper);
         PageResult<Work> pageResult = new PageResult<>();
         pageResult.setCurrent(iPage.getCurrent());

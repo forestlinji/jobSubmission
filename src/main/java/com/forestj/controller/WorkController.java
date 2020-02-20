@@ -142,6 +142,24 @@ public class WorkController {
         return new ResponseJson(ResultCode.SUCCESS);
     }
 
+    @GetMapping("/download2")
+    @ApiOperation(value = "下载单个作业")
+    public void download2(HttpServletResponse res,String workId){
+        Work work = workService.getWorkById(workId);
+        try(InputStream inputStream = new FileInputStream(new File("workFile/"+work.getExamId(),work.getFilename()));
+            OutputStream outputStream = res.getOutputStream();) {
+            //设置内容类型为下载类型
+            res.setContentType("application/x-download");
+            //设置请求头 和 文件下载名称
+            res.addHeader("Content-Disposition","attachment;filename="+work.getFilename());
+            //用 common-io 工具 将输入流拷贝到输出流
+            IOUtils.copy(inputStream,outputStream);
+            outputStream.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     @GetMapping("/delete")
     @ApiOperation(value = "删除单个作业")
     public ResponseJson delete(String workId){
