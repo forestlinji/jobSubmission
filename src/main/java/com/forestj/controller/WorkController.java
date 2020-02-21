@@ -1,6 +1,7 @@
 package com.forestj.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.forestj.pojo.*;
 import com.forestj.service.ExamService;
@@ -174,10 +175,12 @@ public class WorkController {
 
     @PostMapping("/deleteBatch")
     @ApiOperation(value = "批量删除作业")
-    public ResponseJson deleteBatch(@RequestBody String workId){
+    public ResponseJson deleteBatch(String workId){
+        log.info(workId);
         //将json数组转为list
-        String workIds = JSONObject.parseObject(workId).getString("workId");
-        List<String> ids = JSON.parseArray(workId).toJavaList(String.class);
+//        String workIds = JSONObject.parseObject(workId).getString("workId");
+        List<String> ids = JSONArray.parseArray(workId, String.class);
+//        List<String> ids = JSON.parseArray(workId).toJavaList(String.class);
         boolean allSuccess=true;
         for(String id:ids){
             Work work = workService.getWorkById(id);
