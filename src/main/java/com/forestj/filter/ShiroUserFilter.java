@@ -22,14 +22,14 @@ public class ShiroUserFilter extends UserFilter {
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         log.info(httpRequest.getMethod()+":"+httpRequest.getRequestURI());
-        Cookie[] cookies = httpRequest.getCookies();
-        if(cookies!=null){
-            System.out.println(cookies);
-            for (Cookie cookie:cookies){
-                System.out.println(cookie);
-            }
-        }
-        else System.out.println("11111111111111");
+//        Cookie[] cookies = httpRequest.getCookies();
+////        if(cookies!=null){
+////            System.out.println(cookies);
+////            for (Cookie cookie:cookies){
+////                System.out.println(cookie);
+////            }
+////        }
+////        else System.out.println("11111111111111");
 //        log.info(httpRequest.getCookies()[0].toString());
         if (httpRequest.getMethod().equals(RequestMethod.OPTIONS.name())) {
             setHeader(httpRequest,httpResponse);
